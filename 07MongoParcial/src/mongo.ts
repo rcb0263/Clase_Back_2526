@@ -5,7 +5,7 @@ dotenv.config()
 
 let client: MongoClient;
 let dB: Db;
-const dbName= "BaseDatos"
+const dbName= "mongo07"
 export const connectMongoDB = async (): Promise<void> =>{
     try {
         client= new MongoClient(`mongodb+srv://${process.env.USER_MONGO}:${process.env.USER_PASSWORD}@${process.env.MONGO_CLUSTER}.a4nz0xh.mongodb.net/?appName=${process.env.MONGO_APP_NAME}`);

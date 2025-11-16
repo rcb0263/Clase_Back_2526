@@ -5,7 +5,7 @@ import { ObjectId } from "mongodb";
 const router = Router();
 const colleccion = () => {return getDb().collection('Colceccion');}
 
-router.get("/", async (req, res)=>{
+router.get("/r", async (req, res)=>{
     try {
         const personas = await colleccion().find().toArray();
         console.log(personas);
@@ -14,6 +14,21 @@ router.get("/", async (req, res)=>{
         res.status(404).json(error)
     }
 })
+
+
+//Paginación
+router.get("/", async (req, res)=>{
+    try {
+        const page = Number(req.query?.page) || 1;
+        const limit = Number(req.query?.limit) || 2;
+        const skip = (page-1)*limit;
+        const personas = await colleccion().find().skip(skip).limit(limit).toArray();
+        res.json(personas);
+    } catch (error) {
+        res.status(404).json(error)
+    }
+})
+
 
 router.get('/:id', async (req, res)=>{
     const idDelParametro = req.params.id
